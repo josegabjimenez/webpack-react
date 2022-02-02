@@ -13,8 +13,10 @@ module.exports = {
 	resolve: {
 		extensions: ['.js', '.jsx'],
 		alias: {
+			'@pages': path.resolve(__dirname, 'src/pages'),
 			'@components': path.resolve(__dirname, 'src/components'),
 			'@styles': path.resolve(__dirname, 'src/styles'),
+			'@images': path.resolve(__dirname, 'src/assets/images'),
 		},
 	},
 	module: {
@@ -35,6 +37,20 @@ module.exports = {
 			{
 				test: /\.(css|scss)$/,
 				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+			},
+			{
+				test: /\.(png|jpg|jpeg)$/i,
+				type: 'asset/resource',
+				generator: {
+					filename: 'assets/images/[hash][ext][query]',
+				},
+			},
+			{
+				test: /\.(woff|woff2)$/,
+				type: 'asset/resource',
+				generator: {
+					filename: 'assets/fonts/[name].[contenthash].[ext]',
+				},
 			},
 		],
 	},
